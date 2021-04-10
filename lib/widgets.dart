@@ -1,10 +1,13 @@
+import 'dart:ffi';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 
 class TaskCardWidget extends StatelessWidget {
   final String title;
   final String desc;
+  final DateTime due;
 
-  TaskCardWidget({this.title, this.desc});
+  TaskCardWidget({this.title, this.desc, this.due});
 
   @override
   Widget build(BuildContext context) {
@@ -21,28 +24,52 @@ class TaskCardWidget extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          Text(
-            title ?? "(Unnamed Task)",
-            style: TextStyle(
-              color: Color(0xFF211551),
-              fontSize: 22.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: 10.0,
-            ),
-            child: Text(
-              desc ?? "No Description Added",
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Color(0xFF86829D),
-                height: 1.5,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title ?? "(Unnamed Task)",
+                style: TextStyle(
+                  color: Color(0xFF211551),
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 10.0,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      due ?? "No Due Date Added",
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Color(0xFF86829D),
+                        height: 1.5,
+                      ),
+                    ),
+                    Text(
+                      desc ?? "No Description Added",
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Color(0xFF86829D),
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+          TextButton(
+            onPressed: null,
+            child: Icon(
+              Icons.access_alarm,
+              size: 50,
+              color: Color(0xFF643FDB),
             ),
           )
         ],

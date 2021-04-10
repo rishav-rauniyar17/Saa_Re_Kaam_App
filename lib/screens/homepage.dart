@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/database_helper.dart';
 import 'package:flutter_app/screens/taskpage.dart';
 import 'package:flutter_app/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'dart:async';
 
 class Homepage extends StatefulWidget {
   @override
@@ -10,6 +12,63 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   DatabaseHelper _dbHelper = DatabaseHelper();
+
+  var seconds;
+
+  _getSystemTime() {
+    DateTime now = new DateTime.now();
+    if (DateTime.now().second < 10) {
+      return '${DateTime.now().hour} : ${DateTime.now().minute} : 0${DateTime.now().second}';
+    } else if (DateTime.now().minute < 10) {
+      return '${DateTime.now().hour} : 0${DateTime.now().minute} : ${DateTime.now().second}';
+    } else if (DateTime.now().hour < 10) {
+      return '0${DateTime.now().hour} : ${DateTime.now().minute} : ${DateTime.now().second}';
+    }
+    return '${DateTime.now().hour} : ${DateTime.now().minute} : ${DateTime.now().second}';
+  }
+
+  _getSystemDate() {
+    DateTime date = new DateTime.now();
+    return '${DateTime.now().day} / ${DateTime.now().month.toString()} / ${DateTime.now().year}';
+  }
+
+  _getSystemDay() {
+    DateTime date = new DateTime.now();
+    var day = DateTime.now().weekday;
+    switch (day) {
+      case 1:
+        return 'Monday';
+      case 2:
+        return 'Tuesday';
+      case 3:
+        return 'Wednesday';
+      case 4:
+        return 'Thursday';
+      case 5:
+        return 'Friday';
+      case 6:
+        return 'Saturday';
+      case 7:
+        return 'Sunday';
+    }
+  }
+
+  _triggerUpdate() {
+    Timer.periodic(
+        Duration(seconds: 1),
+        (Timer timer) => setState(
+              () {
+                seconds = DateTime.now().second / 60;
+              },
+            ));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    seconds = DateTime.now().second / 60;
+    _triggerUpdate();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +88,40 @@ class _HomepageState extends State<Homepage> {
                       top: 32.0,
                       bottom: 32.0,
                     ),
-                    child: Image(
-                      image: AssetImage('assets/images/logo.png'),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Image(
+                              image: AssetImage('assets/images/logo.png'),
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Text(
+                              'Saa Re Kaam',
+                              style: GoogleFonts.poppins(
+                                fontSize: 30,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          _getSystemTime(),
+                          style: GoogleFonts.poppins(
+                            fontSize: 40,
+                          ),
+                        ),
+                        Text(
+                          _getSystemDate(),
+                        ),
+                        Text(
+                          _getSystemDay(),
+                        )
+                      ],
                     ),
                   ),
                   Expanded(
@@ -42,6 +133,7 @@ class _HomepageState extends State<Homepage> {
                           behavior: NoGlowBehaviour(),
                           child: ListView.builder(
                             itemCount: snapshot.data.length,
+                            physics: BouncingScrollPhysics(),
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () {
