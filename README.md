@@ -1,16 +1,21 @@
-# flutter_app
+# Saa Re Kaam App
 
-Saa Re Kaam App
+The Saa Re Kaam App is a solution of students who struggle managing the tasks and assignments they are assigned. Students often miss the deadlines and get stressed. This app will help them manage their tasks effectively.
 
-## Getting Started
+## Demo Video Link
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Technology Stack:
+  1) Flutter
+  2) Dart  
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Contributors:
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Team Name: Hiro-Heralal
+
+* [Rohan Sinha](https://github.com/)
+* [Rishav Rauniyar](https://github.com/)
+
+## Made At:
+![image](https://user-images.githubusercontent.com/60813267/114283909-11c1ef80-9a6c-11eb-9858-dd74c4bad297.png)
+
